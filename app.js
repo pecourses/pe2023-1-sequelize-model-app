@@ -1,9 +1,16 @@
 const express = require('express');
 const { errorHandlers } = require('./middleware');
+const router = require('./routes');
 
 const app = express();
 
 app.use(express.json());
+
+app.use('/api', router);
+
+app.use(errorHandlers.errorHandler);
+
+module.exports = app;
 
 // Add endpoints handlers
 
@@ -12,7 +19,3 @@ app.use(express.json());
 // GET /api/users/1
 // PATCH /api/users/1 {}
 // DELETE /api/users/1
-
-app.use(errorHandlers.errorHandler);
-
-module.exports = app;
