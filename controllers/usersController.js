@@ -66,7 +66,29 @@ module.exports.getUsers = async (req, res, next) => {
   }
 };
 
-module.exports.getUserById = async (req, res, next) => {};
+// req.params.id
+// .findByPk(1, { raw: true })
+// [{ status, message }];
+module.exports.getUserById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const foundUser = await User.findByPk(id, {
+      raw: true,
+      attributes: { exclude: ['passwHash', 'createdAt', 'updatedAt'] },
+    });
+
+    if (!foundUser) {
+      return res
+        .status(404)
+        .send([{ status: 404, message: 'User not found ):' }]);
+    }
+
+    res.status(200).send({ data: foundUser });
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports.updateUserById = async (req, res, next) => {};
 

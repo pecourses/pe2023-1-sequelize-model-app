@@ -13,3 +13,11 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/api/users?page=2&results=2
+
+### 200
+
+GET http://localhost:5000/api/users/30
+
+### 404
+
+GET http://localhost:5000/api/users/111
