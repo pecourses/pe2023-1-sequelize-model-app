@@ -1,3 +1,4 @@
+const createHttpError = require('http-errors');
 const { ValidationError, BaseError } = require('sequelize');
 
 module.exports.dbErrorHandler = (err, req, res, next) => {
@@ -16,12 +17,7 @@ module.exports.dbErrorHandler = (err, req, res, next) => {
 
   // Всі інші окремо не оброблені помилки Sequelize:
   if (err instanceof BaseError) {
-    return res.status(500).send([
-      {
-        status: 500,
-        title: 'DataBase Error',
-      },
-    ]);
+    next(createHttpError(500, 'Database Error'));
   }
   next(err);
 };

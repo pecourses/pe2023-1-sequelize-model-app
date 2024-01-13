@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { User } = require('./../models');
+const createHttpError = require('http-errors');
 
 module.exports.createUser = async (req, res, next) => {
   const { body } = req;
@@ -8,8 +9,7 @@ module.exports.createUser = async (req, res, next) => {
     const createdUser = await User.create(body);
 
     if (!createdUser) {
-      // TODO: next(createHttpErrors(400, 'Something went wrong'))
-      return res.status(400).send('Something went wrong');
+      return next(createHttpError(400, 'Something went wrong'));
     }
 
     // видалити всі непотрібні або сек'юрні властивості
@@ -64,9 +64,7 @@ module.exports.getUserById = async (req, res, next) => {
     });
 
     if (!foundUser) {
-      return res
-        .status(404)
-        .send([{ status: 404, message: 'User not found ):' }]);
+      return next(createHttpError(404, 'User not found ):'));
     }
 
     res.status(200).send({ data: foundUser });
@@ -89,7 +87,7 @@ module.exports.updateUserById = async (req, res, next) => {
     });
 
     if (!updatedUsersCount) {
-      return res.status(404).send([{ status: 404, title: 'User Not Found' }]);
+      return next(createHttpError(404, 'User not found ):'));
     }
 
     const preparedUser = _.omit(updatedUser, [
@@ -149,7 +147,7 @@ module.exports.deleteUserById = async (req, res, next) => {
   try {
     const deletedUsersCount = await User.destroy({ where: { id } });
     if (!deletedUsersCount) {
-      return res.status(404).send([{ status: 404, title: 'User Not Found' }]);
+      return next(createHttpError(404, 'User not found ):'));
     }
 
     res.status(204).end();
