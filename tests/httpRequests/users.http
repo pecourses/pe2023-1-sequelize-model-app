@@ -4,8 +4,12 @@ Content-Type: application/json
 {
   "firstName":"Jane",
   "lastName": "Dou",
-  "email":"m8@m.com",
+  "email":"m6@m.com",
   "passwHash": "123",
   "birthday":"1990-12-01",
   "gender":"female"
 }
+
+###
+
+GET http://localhost:5000/api/users?page=2&results=2
