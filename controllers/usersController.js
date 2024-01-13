@@ -23,6 +23,7 @@ module.exports.createUser = async (req, res, next) => {
     const createdUser = await User.create(body);
 
     if (!createdUser) {
+      // TODO: next(createHttpErrors(400, 'Something went wrong'))
       return res.status(400).send('Something went wrong');
     }
 
@@ -39,7 +40,7 @@ module.exports.createUser = async (req, res, next) => {
       'updatedAt',
     ]);
 
-    res.status(201).send(preparedUser);
+    res.status(201).send({ data: preparedUser });
   } catch (err) {
     next(err);
   }
