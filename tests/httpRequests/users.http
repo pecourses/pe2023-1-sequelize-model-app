@@ -29,3 +29,30 @@ DELETE http://localhost:5000/api/users/30
 ### 404
 
 DELETE http://localhost:5000/api/users/111
+
+### 200
+
+PATCH  http://localhost:5000/api/users/31
+Content-Type: application/json
+
+{
+    "lastName": "Newdou"
+}
+
+### 404
+
+PATCH  http://localhost:5000/api/users/111
+Content-Type: application/json
+
+{
+    "lastName": "Newdou"
+}
+
+### 500 (422)
+
+PATCH  http://localhost:5000/api/users/31
+Content-Type: application/json
+
+{
+    "firstName": "545153153"
+}
