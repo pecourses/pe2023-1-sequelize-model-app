@@ -92,4 +92,17 @@ module.exports.getUserById = async (req, res, next) => {
 
 module.exports.updateUserById = async (req, res, next) => {};
 
-module.exports.deleteUserById = async (req, res, next) => {};
+module.exports.deleteUserById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deletedUsersCount = await User.destroy({ where: { id } });
+    if (!deletedUsersCount) {
+      return res.status(404).send([{ status: 404, title: 'User Not Found' }]);
+    }
+
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+};
