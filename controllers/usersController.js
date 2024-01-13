@@ -97,6 +97,8 @@ module.exports.updateUserById = async (req, res, next) => {
   } = req;
 
   try {
+    body.passwHash = hashSync(body.passwHash, HASH_SALT);
+
     const [updatedUsersCount, [updatedUser]] = await User.update(body, {
       where: { id },
       raw: true,

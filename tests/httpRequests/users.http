@@ -36,7 +36,7 @@ PATCH  http://localhost:5000/api/users/31
 Content-Type: application/json
 
 {
-    "lastName": "Newdou"
+    "passwHash": "newpassw"
 }
 
 ### 404
