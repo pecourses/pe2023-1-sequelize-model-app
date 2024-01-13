@@ -56,3 +56,32 @@ Content-Type: application/json
 {
     "firstName": "545153153"
 }
+
+### update if doesn`t exist OR create if exists
+### update - 200 {}
+
+PUT http://localhost:5000/api/users/31
+Content-Type: application/json
+
+{
+  "firstName":"Jane",
+  "lastName": "Dou",
+  "email":"m100@m.com",
+  "passwHash": "123",
+  "birthday":"1990-12-01",
+  "gender":"female"    
+}
+
+### create - 201 {}
+
+PUT http://localhost:5000/api/users/1000
+Content-Type: application/json
+
+{
+  "firstName":"Jane",
+  "lastName": "Dou",
+  "email":"m101@m.com",
+  "passwHash": "123",
+  "birthday":"1990-12-01",
+  "gender":"female"    
+}
