@@ -17,4 +17,6 @@ usersRouter
   .put(usersController.updateOrCreateUser, usersController.createUser)
   .delete(usersController.deleteUserById);
 
+usersRouter.get('/:id/tasks', usersController.getUserTasks);
+
 module.exports = usersRouter;
