@@ -20,7 +20,11 @@ usersRouter
 usersRouter.get('/:id/tasks', usersController.getUserTasks);
 
 // save image to images
-usersRouter.patch('/:id/images', upload.uploadUserPhoto);
+usersRouter.patch(
+  '/:id/images',
+  upload.uploadUserPhoto,
+  usersController.updateUserImage
+);
 
 module.exports = usersRouter;
 
