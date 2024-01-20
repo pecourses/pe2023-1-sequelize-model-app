@@ -2,6 +2,11 @@ const { Router } = require('express');
 const { usersController } = require('../controllers');
 const { paginate } = require('../middleware');
 
+const { STATIC_PATH } = require('./../constants');
+const path = require('path');
+const multer = require('multer');
+const upload = multer({ dest: path.join(STATIC_PATH, 'images') });
+
 // api/users
 const usersRouter = Router();
 
@@ -19,4 +24,9 @@ usersRouter
 
 usersRouter.get('/:id/tasks', usersController.getUserTasks);
 
+// save image to images
+usersRouter.patch('/:id/images', upload.single('userPhoto'));
+
 module.exports = usersRouter;
+
+// PATCH /api/users/31/images
